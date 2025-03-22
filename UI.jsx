@@ -86,6 +86,10 @@ var funcDropdown_array = ["FadeInEffectAdder", "-", "TextAnimateFadeAdder", "-",
 var funcDropdown = panel3.add("dropdownlist", undefined, undefined, { name: "dropdown2", items: funcDropdown_array });
 funcDropdown.selection = 0;
 
+var radiobuttonSelected = panel3.add("radiobutton", undefined, undefined, {name: "radiobutton1"}); 
+    radiobuttonSelected.helpTip = "only for selected Layer"; 
+    radiobuttonSelected.text = "selectedLayer"; 
+
 
 // PANEL4
 // ======
@@ -339,22 +343,43 @@ buttonVFXAdd.onClick = function () {
             if (comp && comp instanceof CompItem) {
                 app.beginUndoGroup("遍历所有图层"); // 方便撤销操作
 
-                for (var i = 1; i <= comp.numLayers; i++) {
+                if(radiobuttonSelected.value){
+                    for (var i = 0; i < comp.selectedLayers.length; i++) {
 
-                    var layer = comp.layer(i); // 获取当前图层
-
-                    var markers = layer.property("ADBE Marker"); // 获取标记属性
-                    var markerCount = markers.numKeys; // 获取标记总数
-
-                    //效果执行时间点获取
-                    if (markerCount > 0) {
-                        var markerTime = markers.keyTime(1); // 获取标记的时间
-                    } else {
-                        alert("该图层没有标记！");
+                        var layer = comp.layer(i); // 获取当前图层
+    
+                        var markers = layer.property("ADBE Marker"); // 获取标记属性
+                        var markerCount = markers.numKeys; // 获取标记总数
+    
+                        //效果执行时间点获取
+                        if (markerCount > 0) {
+                            var markerTime = markers.keyTime(1); // 获取标记的时间
+                        } else {
+                            alert("该图层没有标记！");
+                        }
+                        
+                        TextAnimateFadeAdder(markerTime, layer.outPoint, layer);
                     }
-                    
-                    TextAnimateFadeAdder(markerTime, layer.outPoint, layer);
+                }else{
+                    for (var i = 1; i <= comp.numLayers; i++) {
+
+                        var layer = comp.layer(i); // 获取当前图层
+    
+                        var markers = layer.property("ADBE Marker"); // 获取标记属性
+                        var markerCount = markers.numKeys; // 获取标记总数
+    
+                        //效果执行时间点获取
+                        if (markerCount > 0) {
+                            var markerTime = markers.keyTime(1); // 获取标记的时间
+                        } else {
+                            alert("该图层没有标记！");
+                        }
+                        
+                        TextAnimateFadeAdder(markerTime, layer.outPoint, layer);
+                    }
                 }
+
+                
 
                 app.endUndoGroup();
                 alert("TextAnimateFadeAdder添加完成");
