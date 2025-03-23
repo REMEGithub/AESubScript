@@ -146,7 +146,7 @@ function cloneObject(obj) {
 }
 
 /****************************************
- * Function: 
+ * Function: FloatJudge
  * @author X
  * Introduction: 
  ****************************************/
@@ -159,4 +159,17 @@ function FloatJudge(inputValue){
         num = -1;
     }
     return num;
+}
+
+/****************************************
+ * Function: parseTime
+ * @author X
+ * Introduction: 时间转换成ae能识别的秒数
+ ****************************************/
+function parseTime(timeString) {
+    var parts = timeString.split(":");
+    var h = parseFloat(parts[0]) * 3600;
+    var m = parseFloat(parts[1]) * 60;
+    var s = parseFloat(parts[2]);
+    return h + m + s;
 }

@@ -160,7 +160,9 @@ extraGroup3.visible = false;
 
 return {
     dialog: dialog, funcDropdown:funcDropdown, extraGroup:extraGroup, extraGroup2:extraGroup2, extraGroup3:extraGroup3,
-    buttonSubChoose:buttonSubChoose
+    buttonSubChoose:buttonSubChoose, filePath:filePath, buttonImport:buttonImport, checkboxSelected:checkboxSelected,
+    edittextNumberFadeIn:edittextNumberFadeIn, edittextRadius:edittextRadius, edittextIntensity:edittextIntensity,
+    buttonVFXDuplicate:buttonVFXDuplicate, buttonVFXAdd:buttonVFXAdd
 
 }
 
